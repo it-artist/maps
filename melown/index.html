@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Melown</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="https://cdn.melown.com/libs/vtsjs/browser/v2/vts-browser.min.css" />
+
+<script type="text/javascript"
+        src="https://cdn.melown.com/libs/vtsjs/browser/v2/vts-browser.min.js"></script>
+
+</head>
+<body>
+  <div id="map-div"></div>
+  
+  <script>
+    var browser = vts.browser('map-div', {
+      map: "https://cdn.melown.com/mario/store/melown2015/map-config/patrikjira-gmail-com/BigUncle2/mapConfig.json",
+      position: [ 'obj', 15.067184, 49.461783, 'fix', 582.24, 51.92, -22.43, 0.00, 388.54, 55.00 ],
+      authorization: "https://cdn.melown.com/mario/auth/NiJB4omyNQ9lbhZd0dXk"
+    });
+
+
+    function onMapLoaded() {
+      console.log("onmaploaded")
+      map = browser.map;
+      geodata = map.createGeodata();
+      geodata.addPoint([15.0690311, 49.4618422, 500], 'float', { 'name' : 'Statek' });
+      //map.addRenderSlot('custom-render', onCustomRender, true);
+      //map.moveRenderSlotAfter('after-map-render', 'custom-render');
+
+      var style = {
+        "layers" : {
+          "track-line" : {
+            "filter" : ["==", "#type", "line"],
+            "line": true,
+            "line-width" : 4,
+            "line-color": [255,0,255,255],
+            "zbuffer-offset" : [-5,0,0],
+            "z-index" : -1
+          },
+
+          "track-shadow" : {
+            "filter" : ["==", "#type", "line"],
+            "line": true,
+            "line-width" : 20,
+            "line-color": [0,0,0,120],
+            "zbuffer-offset" : [-5,0,0],
+            "hover-event" : true,
+            "advanced-hit" : true
+          },
+
+          "way-points" : {
+              "filter" : ["==", "#type", "point"],
+              "point": true,
+              "point-radius" : 20,
+              "point-color": [0,255,255,255],
+              "zbuffer-offset" : [-5,0,0]
+          },
+        }
+      };
+
+      var freeLayer = geodata.makeFreeLayer(style);
+      map.addFreeLayer('gpxgeodata', freeLayer);
+      var view = map.getView();
+      view.freeLayers.gpxgeodata = {};
+      console.log("done")
+    }
+
+    browser.on('map-loaded', onMapLoaded);
+
+
+
+  </script>
+</body>
+</html>
+
+
+
+
