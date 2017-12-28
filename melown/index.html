@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Melown</title>
+  <title>Rajón Velkýho Strejky</title>
   <meta charset="utf-8" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,7 +62,7 @@
         //callback once is map config loaded
         browser.on('map-loaded', onMapLoaded);
 
-        console.log('fsdfdasfsd')
+        browser.ui.removeControl('search')
 
         //create new UI panel
         //html contetnt is in the form of string
@@ -124,7 +124,7 @@
 
 
         geodata.addPoint([15.0690311, 49.4618422, 90],
-                         'float', { 'name' : 'IT Zahrádka' }, 'statek-zahradka');
+                         'float', { 'name' : 'IT Zahrádka', 'icon-color': [255,0,0,255] }, 'statek-zahradka');
         geodata.addPoint([14.959155, 49.394151, 90],
                          'float', { 'name' : 'Svidník' }, 'svidnik');
         geodata.addPoint([15.325581, 49.407612, 90],
